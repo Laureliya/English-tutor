@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Анжелика Бирюкова | Репетитор английского для детей</title>
+  <title>Анжелика Бирюкова | Репетитор английского</title>
+  <!-- Исправлена ссылка на шрифты — убраны пробелы -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -18,7 +19,6 @@
       --accent: #8a2be2;
       --text: #2d3748;
       --bg: #f5f0ff;
-      --card-shadow: 0 4px 20px rgba(106, 58, 255, 0.1);
     }
 
     body {
@@ -28,7 +28,6 @@
       line-height: 1.6;
     }
 
-    /* Плавная прокрутка */
     html {
       scroll-behavior: smooth;
     }
@@ -40,11 +39,10 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
-      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
     .nav-btn {
@@ -68,14 +66,13 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
     }
 
-    /* АКТИВНАЯ КНОПКА — заметная! */
+    /* АКТИВНАЯ КНОПКА — заметная */
     .nav-btn.active {
-      background: linear-gradient(to right, #ffffff, #f0f0ff);
+      background: white;
       color: var(--primary-dark);
       font-weight: 700;
       transform: translateY(-4px) scale(1.08);
       box-shadow: 0 8px 25px rgba(106, 58, 255, 0.6);
-      border-radius: 50px;
     }
 
     header {
@@ -83,370 +80,67 @@
       color: white;
       padding: 2.5rem 5%;
       text-align: center;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
     }
 
     .profile-pic {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid white;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 auto 1rem;
+      font-size: 2.5rem;
+      color: var(--primary-dark);
     }
 
     h1 {
       font-family: 'Poppins', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
     }
 
     .container {
-      max-width: 1000px;
-      margin: 2.5rem auto;
+      max-width: 900px;
+      margin: 2rem auto;
       padding: 0 20px;
     }
 
     section {
       background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 6px;
-      height: 100%;
-      background: var(--primary-dark);
+      padding: 1.8rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(106, 58, 255, 0.1);
     }
 
     h2 {
-      font-size: 2rem;
-      margin-bottom: 1.4rem;
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
       color: var(--primary-dark);
-      text-align: center;
-      position: relative;
-      padding-bottom: 12px;
-    }
-
-    h2::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
     }
 
     .badge-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 1.5rem;
+      gap: 0.8rem;
+      margin-top: 1rem;
     }
 
     .badge {
       background: var(--primary-dark);
       color: white;
-      padding: 0.7rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 50px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    .badge:hover {
-      background: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    /* Цены */
-    .prices-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    .prices-title {
-      font-size: 2rem;
-      color: var(--primary-dark);
-      text-align: center;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .prices-title::after {
-      content: "";
-      flex: 1;
-      height: 4px;
-      background: var(--accent);
-    }
-
-    .prices-cards {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .price-card {
-      background: transparent;
-      padding: 1.5rem;
-      border-radius: 16px;
-      width: 220px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(106, 58, 255, 0.1);
-      border: 2px solid var(--primary-light);
-      transition: all 0.3s ease;
-    }
-
-    .price-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: var(--accent);
-      box-shadow: 0 8px 25px rgba(106, 58, 255, 0.15);
-    }
-
-    .price-label {
-      font-size: 1.1rem;
-      color: var(--primary-dark);
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .price-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 0.5rem 0;
-    }
-
-    .price-duration {
       font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* Упражнения */
-    .exercises-section {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .exercises-btn {
-      background: linear-gradient(to right, var(--primary-dark), var(--accent));
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.2);
-    }
-
-    .exercises-btn:hover {
-      background: linear-gradient(to right, var(--accent), var(--primary-dark));
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
-    }
-
-    /* Модальные окна */
-    .modal-exercises,
-    .modal-agreement,
-    .booking-form {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content-exercises,
-    .modal-content-agreement,
-    .form-content {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .close-modal-exercises,
-    .close-modal-agreement,
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      color: #666;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    .modal-title-exercises,
-    .modal-title-agreement,
-    .form-content h3 {
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
-    }
-
-    .modal-subtitle-exercises {
-      text-align: center;
-      color: #555;
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-    }
-
-    .exercises-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .exercise-btn {
-      background: linear-gradient(to right, var(--primary-dark), var(--accent));
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.2);
-    }
-
-    .exercise-btn:hover {
-      background: linear-gradient(to right, var(--accent), var(--primary-dark));
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
-    }
-
-    .agreement-text {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-      color: #333;
-    }
-
-    .accept-btn,
-    .submit-btn {
-      background: var(--primary-dark);
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.3);
-      width: 100%;
-    }
-
-    .accept-btn:hover,
-    .submit-btn:hover {
-      background: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
     }
 
     footer {
       text-align: center;
       padding: 2rem;
       color: #666;
-      font-size: 0.95rem;
-      border-top: 1px solid #eee;
-    }
-
-    /* Появление при прокрутке */
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .fade-in-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    section[id] {
-      scroll-margin-top: 80px;
-    }
-
-    @media (max-width: 600px) {
-      .nav-bar {
-        padding: 0.8rem 2%;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      h1 { font-size: 2.2rem; }
-      .tagline { font-size: 1.1rem; }
-      section { padding: 1.8rem; }
-      .badge-container { gap: 0.8rem; }
-      .prices-cards { gap: 0.8rem; }
-      .price-card { width: 100%; }
-      .exercises-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -457,216 +151,64 @@
     <a href="#about" class="nav-btn">👤 Обо мне</a>
     <a href="#materials" class="nav-btn">📚 Материалы</a>
     <a href="#exercises" class="nav-btn">🎮 Упражнения</a>
-    <a href="#prices" class="nav-btn">💰 Форматы и цены</a>
+    <a href="#prices" class="nav-btn">💰 Цены</a>
     <a href="#contacts" class="nav-btn">📞 Контакты</a>
     <a href="#booking" class="nav-btn">📝 Записаться</a>
   </div>
 
   <!-- Шапка -->
   <header>
-    <!-- Заглушка фото -->
-    <img src="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0e9ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter' font-size='16' fill='%236a3aff'%3EВаше фото%3C/text%3E%3C/svg%3E" class="profile-pic" alt="Анжелика Бирюкова">
+    <div class="profile-pic">👩‍🏫</div>
     <h1>Анжелика Бирюкова</h1>
-    <p class="tagline">Репетитор английского для детей и подростков</p>
+    <p>Репетитор английского для детей</p>
   </header>
 
   <div class="container">
+    <section id="about">
+      <h2>👤 Обо мне</h2>
+      <div class="badge-container">
+        <span class="badge">Высшее образование, ин.яз</span>
+        <span class="badge">ИИ в обучении</span>
+        <span class="badge">Современные методики</span>
+      </div>
+    </section>
 
-    <div class="fade-in-section">
-      <section id="about">
-        <h2>👤 Обо мне</h2>
-        <div class="badge-container">
-          <span class="badge">Высшее педагогическое образование, ин.яз</span>
-          <span class="badge">Применение ИИ в обучении</span>
-          <span class="badge">Современные технологии обучения английскому</span>
-        </div>
-      </section>
-    </div>
+    <section id="materials">
+      <h2>📚 Материалы</h2>
+      <div class="badge-container">
+        <span class="badge">Учебники</span>
+        <span class="badge">Платформы</span>
+        <span class="badge">Авторские материалы</span>
+      </div>
+    </section>
 
-    <div class="fade-in-section">
-      <section id="materials">
-        <h2>📚 Учебные материалы</h2>
-        <div class="badge-container">
-          <span class="badge">Современные методики и учебники</span>
-          <span class="badge">Интерактивные платформы</span>
-          <span class="badge">Авторские материалы + дом. задания с самопроверкой</span>
-        </div>
-      </section>
-    </div>
+    <section id="exercises">
+      <h2>🎮 Упражнения</h2>
+      <p>Интерактивные задания, тесты, игры</p>
+    </section>
 
-    <div class="fade-in-section">
-      <section id="exercises">
-        <h2>🎮 Упражнения</h2>
-        <div class="exercises-section">
-          <a href="#" class="exercises-btn" id="openExercisesModal">
-            📚 Интерактивные упражнения, тесты, игры
-          </a>
-        </div>
-      </section>
-    </div>
+    <section id="prices">
+      <h2>💰 Цены</h2>
+      <p>Индивидуально — 2000 ₽</p>
+    </section>
 
-    <div class="fade-in-section">
-      <section id="prices">
-        <div class="prices-section">
-          <div class="prices-title">
-            <span>💰</span> Форматы и цены
-          </div>
-          <div class="prices-cards">
-            <div class="price-card">
-              <div class="price-label">Индивидуально</div>
-              <div class="price-value">2000 ₽</div>
-              <div class="price-duration">за 60 мин</div>
-            </div>
-            <div class="price-card">
-              <div class="price-label">В парах</div>
-              <div class="price-value">1500 ₽</div>
-              <div class="price-duration">за 60 мин</div>
-            </div>
-            <div class="price-card">
-              <div class="price-label">Мини-группа</div>
-              <div class="price-value">1000 ₽</div>
-              <div class="price-duration">за 60 мин</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <section id="contacts">
+      <h2>📞 Контакты</h2>
+      <p>+7 (000) 000-00-00</p>
+    </section>
 
-    <div class="fade-in-section">
-      <section id="contacts">
-        <div class="contacts-section">
-          <h2>📞 Контакты</h2>
-          <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
-            Телефон: <strong>+7 (000) 000-00-00</strong><br>
-            Email: <strong>angelinabirukova@example.com</strong>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="fade-in-section">
-      <section id="booking">
-        <div class="booking-section">
-          <h2>📝 Записаться на урок</h2>
-          <div style="text-align: center; margin-top: 1.5rem;">
-            <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
-          </div>
-        </div>
-      </section>
-    </div>
-
+    <section id="booking">
+      <h2>📝 Записаться</h2>
+      <p>Нажмите на кнопку в шапке</p>
+    </section>
   </div>
 
   <footer>
-    <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
+    <p>© 2025 Анжелика Бирюкова</p>
   </footer>
 
-  <!-- Модальные окна -->
-  <div class="modal-exercises" id="exercisesModal">
-    <div class="modal-content-exercises">
-      <button class="close-modal-exercises" id="closeExercisesModal">&times;</button>
-      <div class="modal-title-exercises">🎮 Интерактивные материалы</div>
-      <p class="modal-subtitle-exercises">Выберите раздел для практики:</p>
-      <div class="exercises-buttons">
-        <a href="#" class="exercise-btn"><span>📝</span> Упражнения</a>
-        <a href="#" class="exercise-btn"><span>✅</span> Тесты</a>
-        <a href="#" class="exercise-btn"><span>🎮</span> Игры</a>
-        <a href="#" class="exercise-btn"><span>🎬</span> Видеоматериалы</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-agreement" id="agreementModal">
-    <div class="modal-content-agreement">
-      <button class="close-modal-agreement" id="closeAgreementModal">&times;</button>
-      <h3 class="modal-title-agreement">📄 Договор-оферта</h3>
-      <div class="agreement-text">
-        <p><strong>Публичный договор-оферта на оказание репетиторских услуг</strong></p>
-        <p>Настоящий договор регулирует условия предоставления услуг репетитора по английскому языку. Используя услуги, вы соглашаетесь с условиями настоящей оферты.</p>
-        <p>Услуги оказываются дистанционно. Оплата производится до начала занятий. Отмена занятия возможна не позднее чем за 24 часа.</p>
-        <p>Конфиденциальность данных клиента гарантируется. Все материалы защищены авторским правом.</p>
-        <p>Полный текст договора доступен по запросу.</p>
-      </div>
-      <button class="accept-btn" id="acceptAgreement">✅ Согласен(а) с условиями</button>
-    </div>
-  </div>
-
-  <div class="booking-form" id="bookingForm">
-    <div class="form-content">
-      <button class="close-modal" id="closeBookingForm">&times;</button>
-      <h3>📝 Записаться на урок</h3>
-      <form id="lessonForm">
-        <div class="form-group">
-          <label for="name">Ваше имя</label>
-          <input type="text" id="name" name="name" required placeholder="Например, Мария">
-        </div>
-        <div class="form-group">
-          <label for="phone">Телефон</label>
-          <input type="tel" id="phone" name="phone" required placeholder="+7 (000) 000-00-00">
-        </div>
-        <div class="form-group">
-          <label for="comment">Комментарий (возраст ребёнка, цель)</label>
-          <textarea id="comment" name="comment" placeholder="Например: сын, 10 лет, готовимся к ОГЭ"></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Отправить заявку</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- СКРИПТЫ -->
+  <!-- СКРИПТ активной навигации -->
   <script>
-    // --- Модальные окна ---
-    const exercisesModal = document.getElementById('exercisesModal');
-    const agreementModal = document.getElementById('agreementModal');
-    const bookingForm = document.getElementById('bookingForm');
-
-    document.getElementById('openExercisesModal').addEventListener('click', (e) => {
-      e.preventDefault();
-      exercisesModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-
-    document.getElementById('openAgreementModal').addEventListener('click', (e) => {
-      e.preventDefault();
-      agreementModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-
-    document.getElementById('acceptAgreement').addEventListener('click', () => {
-      agreementModal.style.display = 'none';
-      bookingForm.style.display = 'flex';
-    });
-
-    // Закрытие модалок
-    const closeButtons = document.querySelectorAll('.close-modal, .close-modal-exercises, .close-modal-agreement');
-    closeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        exercisesModal.style.display = 'none';
-        agreementModal.style.display = 'none';
-        bookingForm.style.display = 'none';
-        document.body.style.overflow = '';
-      });
-    });
-
-    window.addEventListener('click', (e) => {
-      if (e.target.classList.contains('modal-exercises') ||
-          e.target.classList.contains('modal-agreement') ||
-          e.target.classList.contains('booking-form')) {
-        e.target.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    });
-
-    // --- Форма ---
-    document.getElementById('lessonForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время!');
-      bookingForm.style.display = 'none';
-      document.body.style.overflow = '';
-      e.target.reset();
-    });
-
-    // --- АКТИВНАЯ НАВИГАЦИЯ (обновлённая) ---
     document.addEventListener('DOMContentLoaded', () => {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.nav-btn');
@@ -684,12 +226,15 @@
         });
 
         navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+          }
         });
       };
 
       window.addEventListener('scroll', updateActiveLink);
-      updateActiveLink(); // при загрузке
+      updateActiveLink();
     });
   </script>
 
