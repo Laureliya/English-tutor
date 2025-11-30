@@ -426,9 +426,12 @@
   document.addEventListener('DOMContentLoaded', () => {
     const sections = Array.from(document.querySelectorAll('section[id]'));
     const navLinks = document.querySelectorAll('.nav-btn');
+    let isManualScroll = false; // флаг: идёт ли прокрутка по клику
 
-    // Функция: обновить активную кнопку по текущей прокрутке
+    // Обновление активной кнопки (игнорируется при ручной прокрутке)
     const updateActiveByScroll = () => {
+      if (isManualScroll) return; // не обновляем во время прокрутки по клику
+
       const scrollY = window.scrollY + window.innerHeight / 2;
       let currentId = '';
 
@@ -447,44 +450,50 @@
       });
     };
 
-    // Обработчик прокрутки
-    let isScrolling = false;
-    window.addEventListener('scroll', () => {
-      if (!isScrolling) {
-        requestAnimationFrame(() => {
-          updateActiveByScroll();
-          isScrolling = false;
-        });
-        isScrolling = true;
-      }
-    });
-
-    // Обработчик клика по навигации
+    // Клик по навигации
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href');
-        
-        // Сразу подсвечиваем
+        const targetSection = document.querySelector(targetId);
+
+        if (!targetSection) return;
+
+        // 1. Сразу подсвечиваем
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
 
-        // Прокручиваем
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          window.scrollTo({
-            top: targetSection.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
+        // 2. Включаем флаг
+        isManualScroll = true;
+
+        // 3. Прокручиваем
+        window.scrollTo({
+          top: targetSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+
+        // 4. Через 800 мс (после завершения прокрутки) — выключаем флаг
+        setTimeout(() => {
+          isManualScroll = false;
+          // Обновляем подсветку, если пользователь уже начал скроллить дальше
+          updateActiveByScroll();
+        }, 800);
       });
+    });
+
+    // Обработчик прокрутки (ручной)
+    let scrollTimer;
+    window.addEventListener('scroll', () => {
+      if (isManualScroll) return;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateActiveByScroll, 100);
     });
 
     // Инициализация
     updateActiveByScroll();
   });
 </script>
-
 </body>
 </html>
+
 
