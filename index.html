@@ -265,31 +265,24 @@
       margin-top: 1.5rem;
     }
 
-    #spin-wheel-btn {
-      background: linear-gradient(to right, #ff6f00, #ff9a8b);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
-      transition: all 0.3s;
+    .wheel-header {
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
     }
 
-    #spin-wheel-btn:hover:not(:disabled) {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
-    }
-
-    #spin-wheel-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .wheel-subheader {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .wheel-container {
-      display: none;
+      display: flex;
       justify-content: center;
       margin: 2rem 0;
     }
@@ -310,6 +303,31 @@
       font-size: 1.2rem;
       font-weight: 600;
       color: var(--primary-dark);
+    }
+
+    /* Кнопка "Крутить" */
+    #spin-wheel-btn {
+      background: linear-gradient(to right, var(--accent), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+      transition: all 0.3s;
+      margin-top: 1.5rem;
+    }
+
+    #spin-wheel-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+    }
+
+    #spin-wheel-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     /* Модальное окно результата */
@@ -469,11 +487,15 @@
       <h2>📝 Записаться на урок</h2>
       <div class="booking-section">
         <div style="text-align: center; margin-top: 1rem;">
-          <button id="spin-wheel-btn">🎰 Крутить колесо фортуны!</button>
-          <div class="wheel-container" id="wheel-container">
-            <canvas id="fortune-wheel" width="250" height="250"></canvas>
+          <div class="wheel-section">
+            <div class="wheel-header">🎁 Получите стартовый подарок!</div>
+            <div class="wheel-subheader">Покрутите колесо и получите бонус для начала занятий. Каждый новый ученик получает подарок!</div>
+            <div class="wheel-container">
+              <canvas id="fortune-wheel" width="250" height="250"></canvas>
+            </div>
+            <button id="spin-wheel-btn">Крутить колесо!</button>
+            <div class="wheel-result" id="wheel-result"></div>
           </div>
-          <div class="wheel-result" id="wheel-result"></div>
         </div>
       </div>
     </section>
@@ -546,7 +568,7 @@
     updateActiveNav();
   </script>
 
-  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ -->
+  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (в ваших оттенках) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const prizes = [
@@ -578,6 +600,15 @@
         }
       }
 
+      // Цвета секторов в ваших оттенках
+      const colors = [
+        '#6a3aff', // темно-фиолетовый
+        '#8a2be2', // фиолетово-розовый
+        '#d1c4e9', // светло-фиолетовый
+        '#b388ff', // лиловый
+        '#9575cd'  // серо-фиолетовый
+      ];
+
       // Рисуем колесо
       function drawWheel() {
         const centerX = wheelCanvas.width / 2;
@@ -591,7 +622,6 @@
           const endAngle = (i + 1) * arc;
 
           // Цвет сектора
-          const colors = ['#FF6F00', '#1DE9B6', '#FF4081', '#7C4DFF', '#4CAF50'];
           ctx.fillStyle = colors[i % colors.length];
           ctx.beginPath();
           ctx.moveTo(centerX, centerY);
@@ -615,7 +645,7 @@
           ctx.restore();
         }
 
-        // Стрелка
+        // Стрелка (ваш логотип — сова)
         ctx.fillStyle = '#333';
         ctx.beginPath();
         ctx.moveTo(centerX - 10, 20);
@@ -623,6 +653,16 @@
         ctx.lineTo(centerX, 0);
         ctx.closePath();
         ctx.fill();
+
+        // Логотип по центру
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#6a3aff';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('🦉', centerX, centerY + 5);
       }
 
       // Крутим колесо
@@ -681,7 +721,6 @@
 
       // Обработчики
       spinBtn.addEventListener('click', () => {
-        document.getElementById('wheel-container').style.display = 'flex';
         setTimeout(spinWheel, 500);
       });
 
