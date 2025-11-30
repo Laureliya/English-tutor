@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Анжелика Бирюкова | Репетитор английского для детей</title>
-  <!-- Исправлено: убраны пробелы в ссылке на шрифты -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -45,6 +44,8 @@
       top: 0;
       z-index: 1000;
       width: 100%;
+      min-height: 64px; /* фиксированная высота */
+      align-items: center;
     }
 
     .nav-btn {
@@ -68,7 +69,7 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
     }
 
-    /* АКТИВНАЯ КНОПКА — заметная */
+    /* АКТИВНАЯ КНОПКА */
     .nav-btn.active {
       background: white;
       color: var(--primary-dark);
@@ -111,8 +112,9 @@
 
     .container {
       max-width: 1000px;
-      margin: 2.5rem auto;
+      margin: 0 auto; /* убран верхний отступ */
       padding: 0 20px;
+      padding-top: 80px; /* ✅ КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: отступ под навигацию */
     }
 
     section {
@@ -249,7 +251,7 @@
       color: #666;
     }
 
-    /* Упражнения — кнопка */
+    /* Упражнения */
     .exercises-section {
       text-align: center;
       padding: 2rem;
@@ -328,15 +330,13 @@
 
   <!-- Шапка -->
   <header>
-    <!-- ЗАГЛУШКА ДЛЯ ФОТО — замените позже -->
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0e9ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter' font-size='16' fill='%236a3aff'%3EВаше фото%3C/text%3E%3C/svg%3E" class="profile-pic" alt="Анжелика Бирюкова">
+    <img src="IMAGES/photo.png" class="profile-pic" alt="Анжелика Бирюкова">
     <h1>Анжелика Бирюкова</h1>
     <p class="tagline">Репетитор английского для детей и подростков</p>
   </header>
 
   <div class="container">
 
-    <!-- Обо мне -->
     <section id="about">
       <h2>👤 Обо мне</h2>
       <div class="badge-container">
@@ -346,7 +346,6 @@
       </div>
     </section>
 
-    <!-- Материалы -->
     <section id="materials">
       <h2>📚 Учебные материалы</h2>
       <div class="badge-container">
@@ -356,7 +355,6 @@
       </div>
     </section>
 
-    <!-- Упражнения -->
     <section id="exercises">
       <h2>🎮 Упражнения</h2>
       <div class="exercises-section">
@@ -366,7 +364,6 @@
       </div>
     </section>
 
-    <!-- Цены -->
     <section id="prices">
       <div class="prices-section">
         <div class="prices-title">
@@ -390,9 +387,8 @@
           </div>
         </div>
       </div>
-    </ section>
+    </section>
 
-    <!-- Контакты -->
     <section id="contacts">
       <div class="contacts-section">
         <h2>📞 Контакты</h2>
@@ -403,7 +399,6 @@
       </div>
     </section>
 
-    <!-- Записаться -->
     <section id="booking">
       <div class="booking-section">
         <h2>📝 Записаться на урок</h2>
@@ -419,7 +414,6 @@
     <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
   </footer>
 
-  <!-- СКРИПТ: активная навигация -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const sections = document.querySelectorAll('section[id]');
