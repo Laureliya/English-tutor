@@ -114,21 +114,20 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 20px;
-      padding-top: 80px; /* отступ под навигацию */
+      padding-top: 80px;
     }
 
-   section {
-  background: #f8f4ff;
-  padding: 2rem;
-  border-radius: 20px;
-  margin-bottom: 2.5rem;
-  box-shadow: var(--card-shadow);
-  position: relative;
-  overflow: hidden;
-  min-height: 500px; /* ✅ достаточно для стабильности, но не огромно */
-  display: flex;
-  flex-direction: column;
-}
+    section {
+      background: #f8f4ff;
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      min-height: 500px; /* достаточно для стабильности */
+    }
+
     section::before {
       content: "";
       position: absolute;
@@ -184,37 +183,13 @@
       transform: translateY(-3px);
     }
 
-    /* Цены */
-    .prices-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    .prices-title {
-      font-size: 2rem;
-      color: var(--primary-dark);
-      text-align: center;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .prices-title::after {
-      content: "";
-      flex: 1;
-      height: 4px;
-      background: var(--accent);
-    }
-
+    /* Цены — теперь внутри section, без своего фона */
     .prices-cards {
       display: flex;
       justify-content: center;
       gap: 1.5rem;
       flex-wrap: wrap;
+      margin-top: 1.5rem;
     }
 
     .price-card {
@@ -253,20 +228,20 @@
       color: #666;
     }
 
-    /* Упражнения */
+    /* Упражнения — кнопка */
     .exercises-section {
       text-align: center;
-      padding: 2rem;
+      padding: 1rem 0;
     }
 
     .exercises-btn {
       background: linear-gradient(to right, var(--primary-dark), var(--accent));
       color: white;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.5rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
@@ -280,14 +255,11 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
     }
 
-    /* Контакты и запись */
+    /* Внутренние блоки — только отступы */
+    .prices-section,
     .contacts-section,
     .booking-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
+      padding: 1.5rem 0; /* только вертикальные отступы */
     }
 
     footer {
@@ -296,10 +268,6 @@
       color: #666;
       font-size: 0.95rem;
       border-top: 1px solid #eee;
-    }
-
-    section[id] {
-      scroll-margin-top: 80px;
     }
 
     @media (max-width: 600px) {
@@ -314,7 +282,7 @@
       .badge-container { gap: 0.8rem; }
       .prices-cards { gap: 0.8rem; }
       .price-card { width: 100%; }
-      .exercises-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+      .exercises-btn { padding: 0.7rem 1rem; font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -332,7 +300,6 @@
 
   <!-- Шапка -->
   <header>
-    <!-- Заглушка фото — замените на своё -->
     <img src="https://via.placeholder.com/120/6a3aff/ffffff?text=Фото" class="profile-pic" alt="Анжелика Бирюкова">
     <h1>Анжелика Бирюкова</h1>
     <p class="tagline">Репетитор английского для детей и подростков</p>
@@ -340,7 +307,6 @@
 
   <div class="container">
 
-    <!-- Обо мне -->
     <section id="about">
       <h2>👤 Обо мне</h2>
       <div class="badge-container">
@@ -350,7 +316,6 @@
       </div>
     </section>
 
-    <!-- Материалы -->
     <section id="materials">
       <h2>📚 Учебные материалы</h2>
       <div class="badge-container">
@@ -360,7 +325,6 @@
       </div>
     </section>
 
-    <!-- Упражнения -->
     <section id="exercises">
       <h2>🎮 Упражнения</h2>
       <div class="exercises-section">
@@ -370,12 +334,9 @@
       </div>
     </section>
 
-    <!-- Цены -->
     <section id="prices">
+      <h2>💰 Форматы и цены</h2>
       <div class="prices-section">
-        <div class="prices-title">
-          <span>💰</span> Форматы и цены
-        </div>
         <div class="prices-cards">
           <div class="price-card">
             <div class="price-label">Индивидуально</div>
@@ -396,22 +357,20 @@
       </div>
     </section>
 
-    <!-- Контакты -->
     <section id="contacts">
+      <h2>📞 Контакты</h2>
       <div class="contacts-section">
-        <h2>📞 Контакты</h2>
-        <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
+        <div style="text-align: center; font-size: 1.1rem; line-height: 1.6;">
           Телефон: <strong>+7 (000) 000-00-00</strong><br>
           Email: <strong>angelinabirukova@example.com</strong>
         </div>
       </div>
     </section>
 
-    <!-- Записаться -->
     <section id="booking">
+      <h2>📝 Записаться на урок</h2>
       <div class="booking-section">
-        <h2>📝 Записаться на урок</h2>
-        <div style="text-align: center; margin-top: 1.5rem;">
+        <div style="text-align: center; margin-top: 1rem;">
           <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
         </div>
       </div>
@@ -423,54 +382,58 @@
     <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
   </footer>
 
-  <!-- Надёжный скрипт активной навигации -->
+  <!-- Стабильный скрипт навигации -->
   <script>
-  // Умная активная навигация
-  const updateActiveNav = () => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-btn');
-    
-    let currentId = '';
-    let currentSection = null;
-    let smallestDiff = Infinity;
+    const updateActiveNav = () => {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-btn');
+      
+      let currentId = '';
+      let smallestDiff = Infinity;
 
-    // Находим ближайший раздел к верху экрана (ниже навигации)
-    sections.forEach(section => {
-      const top = section.getBoundingClientRect().top;
-      if (top < 200 && top > -500) { // в зоне видимости
-        const diff = Math.abs(top - 100); // 100px = зона под навигацией
-        if (diff < smallestDiff) {
-          smallestDiff = diff;
-          currentId = section.id;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < 200 && top > -500) {
+          const diff = Math.abs(top - 100);
+          if (diff < smallestDiff) {
+            smallestDiff = diff;
+            currentId = section.id;
+          }
         }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveNav();
+          ticking = false;
+        });
+        ticking = true;
       }
     });
 
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
-    });
-  };
-
-  // Используем requestAnimationFrame для плавности
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateActiveNav();
-        ticking = false;
+    // Клик — плавная прокрутка
+    document.querySelectorAll('.nav-btn').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
       });
-      ticking = true;
-    }
-  });
+    });
 
-  // Инициализация
-  updateActiveNav();
-</script>
+    updateActiveNav();
+  </script>
+
 </body>
 </html>
-
-
-
-
-
-
