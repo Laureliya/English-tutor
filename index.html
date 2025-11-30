@@ -117,7 +117,7 @@
       padding-top: 80px; /* отступ под навигацию */
     }
 
-    section {
+   section {
   background: #f8f4ff;
   padding: 2rem;
   border-radius: 20px;
@@ -125,12 +125,10 @@
   box-shadow: var(--card-shadow);
   position: relative;
   overflow: hidden;
-  min-height: 100vh; /* ✅ КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
+  min-height: 500px; /* ✅ достаточно для стабильности, но не огромно */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
-
     section::before {
       content: "";
       position: absolute;
@@ -484,6 +482,7 @@
 </script>
 </body>
 </html>
+
 
 
 
