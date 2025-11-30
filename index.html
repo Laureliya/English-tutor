@@ -68,6 +68,16 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
     }
 
+    /* АКТИВНАЯ КНОПКА — заметная! */
+    .nav-btn.active {
+      background: linear-gradient(to right, #ffffff, #f0f0ff);
+      color: var(--primary-dark);
+      font-weight: 700;
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 8px 25px rgba(106, 58, 255, 0.6);
+      border-radius: 50px;
+    }
+
     header {
       background: linear-gradient(110deg, var(--primary-light), var(--primary-dark));
       color: white;
@@ -107,7 +117,7 @@
     }
 
     section {
-      background: #f8f4ff; /* светло-фиолетовый фон разделов */
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       margin-bottom: 2.5rem;
@@ -240,7 +250,7 @@
       color: #666;
     }
 
-    /* Упражнения — кнопка внутри раздела */
+    /* Упражнения */
     .exercises-section {
       text-align: center;
       padding: 2rem;
@@ -267,8 +277,10 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
     }
 
-    /* Модальное окно упражнений */
-    .modal-exercises {
+    /* Модальные окна */
+    .modal-exercises,
+    .modal-agreement,
+    .booking-form {
       display: none;
       position: fixed;
       z-index: 2000;
@@ -276,39 +288,43 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: #dbc5fa;
+      background-color: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
     }
 
-    .modal-content-exercises {
+    .modal-content-exercises,
+    .modal-content-agreement,
+    .form-content {
       background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
-      max-width: 500px;
+      max-width: 600px;
       width: 90%;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .close-modal-exercises {
+    .close-modal-exercises,
+    .close-modal-agreement,
+    .close-modal {
       position: absolute;
       top: 1rem;
       right: 1rem;
       font-size: 1.5rem;
       color: #666;
       cursor: pointer;
-      background: #dbc5fa;
+      background: none;
       border: none;
     }
 
-    .modal-title-exercises {
-      font-size: 1.5rem;
+    .modal-title-exercises,
+    .modal-title-agreement,
+    .form-content h3 {
       color: var(--primary-dark);
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     .modal-subtitle-exercises {
@@ -343,70 +359,6 @@
       background: linear-gradient(to right, var(--accent), var(--primary-dark));
       transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
-    }
-
-    /* Контакты */
-    .contacts-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    /* Записаться */
-    .booking-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    /* Модальные окна */
-    .modal-agreement,
-    .booking-form {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content-agreement,
-    .form-content {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .close-modal-agreement,
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      color: #666;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    .modal-title-agreement,
-    .form-content h3 {
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
     }
 
     .agreement-text {
@@ -466,7 +418,7 @@
       border-top: 1px solid #eee;
     }
 
-    /* Анимация появления при прокрутке */
+    /* Появление при прокрутке */
     .fade-in-section {
       opacity: 0;
       transform: translateY(30px);
@@ -512,16 +464,14 @@
 
   <!-- Шапка -->
   <header>
-    <!-- 💡 ЗДЕСЬ БУДЕТ ВАШЕ ФОТО -->
-    <!-- После загрузки фото в папку IMAGES, замените src на: "IMAGES/photo.jpg" -->
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0e9ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter' font-size='16' fill='%236a3aff'%3EВаше фото%3C/text%3E%3C/svg%3E" class="profile-pic" alt="Анжелика Бирюкова">
+    <!-- Заглушка фото -->
+    <img src="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0e9ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter' font-size='16' fill='%236a3aff'%3EВаше фото%3C/text%3E%3C/svg%3E" class="profile-pic" alt="Анжелика Бирюкова">
     <h1>Анжелика Бирюкова</h1>
     <p class="tagline">Репетитор английского для детей и подростков</p>
   </header>
 
   <div class="container">
 
-    <!-- Обо мне -->
     <div class="fade-in-section">
       <section id="about">
         <h2>👤 Обо мне</h2>
@@ -533,7 +483,6 @@
       </section>
     </div>
 
-    <!-- Материалы -->
     <div class="fade-in-section">
       <section id="materials">
         <h2>📚 Учебные материалы</h2>
@@ -545,7 +494,6 @@
       </section>
     </div>
 
-    <!-- Упражнения -->
     <div class="fade-in-section">
       <section id="exercises">
         <h2>🎮 Упражнения</h2>
@@ -557,7 +505,6 @@
       </section>
     </div>
 
-    <!-- Цены -->
     <div class="fade-in-section">
       <section id="prices">
         <div class="prices-section">
@@ -585,20 +532,18 @@
       </section>
     </div>
 
-    <!-- Контакты -->
     <div class="fade-in-section">
       <section id="contacts">
         <div class="contacts-section">
           <h2>📞 Контакты</h2>
           <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
             Телефон: <strong>+7 (000) 000-00-00</strong><br>
-            Email:   <strong>angelinabirukova@example.com</strong>
+            Email: <strong>angelinabirukova@example.com</strong>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Записаться -->
     <div class="fade-in-section">
       <section id="booking">
         <div class="booking-section">
@@ -616,7 +561,7 @@
     <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
   </footer>
 
-  <!-- Модалка: Упражнения -->
+  <!-- Модальные окна -->
   <div class="modal-exercises" id="exercisesModal">
     <div class="modal-content-exercises">
       <button class="close-modal-exercises" id="closeExercisesModal">&times;</button>
@@ -631,7 +576,6 @@
     </div>
   </div>
 
-  <!-- Модалка: Оферта -->
   <div class="modal-agreement" id="agreementModal">
     <div class="modal-content-agreement">
       <button class="close-modal-agreement" id="closeAgreementModal">&times;</button>
@@ -647,7 +591,6 @@
     </div>
   </div>
 
-  <!-- Форма записи -->
   <div class="booking-form" id="bookingForm">
     <div class="form-content">
       <button class="close-modal" id="closeBookingForm">&times;</button>
@@ -670,107 +613,83 @@
     </div>
   </div>
 
+  <!-- СКРИПТЫ -->
   <script>
-    // --- Упражнения ---
+    // --- Модальные окна ---
     const exercisesModal = document.getElementById('exercisesModal');
-    const openExercisesModal = document.getElementById('openExercisesModal');
-    const closeExercisesModal = document.getElementById('closeExercisesModal');
-    
-    openExercisesModal.addEventListener('click', (e) => {
+    const agreementModal = document.getElementById('agreementModal');
+    const bookingForm = document.getElementById('bookingForm');
+
+    document.getElementById('openExercisesModal').addEventListener('click', (e) => {
       e.preventDefault();
       exercisesModal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     });
-    
-    closeExercisesModal.addEventListener('click', () => {
-      exercisesModal.style.display = 'none';
-      document.body.style.overflow = '';
-    });
-    
-    window.addEventListener('click', (e) => {
-      if (e.target === exercisesModal) {
-        exercisesModal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    });
 
-    // --- Оферта и запись ---
-    const agreementModal = document.getElementById('agreementModal');
-    const bookingForm = document.getElementById('bookingForm');
-    const openAgreementModal = document.getElementById('openAgreementModal');
-    const closeAgreementModal = document.getElementById('closeAgreementModal');
-    const acceptAgreement = document.getElementById('acceptAgreement');
-    const closeBookingForm = document.getElementById('closeBookingForm');
-    
-    openAgreementModal.addEventListener('click', (e) => {
+    document.getElementById('openAgreementModal').addEventListener('click', (e) => {
       e.preventDefault();
       agreementModal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     });
-    
-    closeAgreementModal.addEventListener('click', () => {
-      agreementModal.style.display = 'none';
-      document.body.style.overflow = '';
-    });
-    
-    acceptAgreement.addEventListener('click', () => {
+
+    document.getElementById('acceptAgreement').addEventListener('click', () => {
       agreementModal.style.display = 'none';
       bookingForm.style.display = 'flex';
     });
-    
-    closeBookingForm.addEventListener('click', () => {
-      bookingForm.style.display = 'none';
-      document.body.style.overflow = '';
-    });
-    
-    window.addEventListener('click', (e) => {
-      if (e.target === agreementModal) {
+
+    // Закрытие модалок
+    const closeButtons = document.querySelectorAll('.close-modal, .close-modal-exercises, .close-modal-agreement');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        exercisesModal.style.display = 'none';
         agreementModal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-      if (e.target === bookingForm) {
         bookingForm.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-exercises') ||
+          e.target.classList.contains('modal-agreement') ||
+          e.target.classList.contains('booking-form')) {
+        e.target.style.display = 'none';
         document.body.style.overflow = '';
       }
     });
 
     // --- Форма ---
-    const lessonForm = document.getElementById('lessonForm');
-    if (lessonForm) {
-      lessonForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время!');
-        bookingForm.style.display = 'none';
-        document.body.style.overflow = '';
-        lessonForm.reset();
-      });
-    }
-
-    // --- Закрытие модалок при нажатии Esc ---
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        exercisesModal.style.display = 'none';
-        agreementModal.style.display = 'none';
-        bookingForm.style.display = 'none';
-        document.body.style.overflow = '';
-      }
+    document.getElementById('lessonForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время!');
+      bookingForm.style.display = 'none';
+      document.body.style.overflow = '';
+      e.target.reset();
     });
 
-    // --- Плавное появление блоков при прокрутке ---
+    // --- АКТИВНАЯ НАВИГАЦИЯ (обновлённая) ---
     document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-btn');
+
+      const updateActiveLink = () => {
+        let current = '';
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
           }
         });
-      }, {
-        threshold: 0.1
-      });
 
-      document.querySelectorAll('.fade-in-section').forEach(section => {
-        observer.observe(section);
-      });
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+        });
+      };
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // при загрузке
     });
   </script>
 
