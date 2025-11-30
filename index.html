@@ -125,7 +125,7 @@
       box-shadow: var(--card-shadow);
       position: relative;
       overflow: hidden;
-      min-height: 500px; /* достаточно для стабильности */
+      min-height: 500px;
     }
 
     section::before {
@@ -183,7 +183,6 @@
       transform: translateY(-3px);
     }
 
-    /* Цены — теперь внутри section, без своего фона */
     .prices-cards {
       display: flex;
       justify-content: center;
@@ -228,7 +227,6 @@
       color: #666;
     }
 
-    /* Упражнения — кнопка */
     .exercises-section {
       text-align: center;
       padding: 1rem 0;
@@ -255,11 +253,114 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
     }
 
-    /* Внутренние блоки — только отступы */
     .prices-section,
     .contacts-section,
     .booking-section {
-      padding: 1.5rem 0; /* только вертикальные отступы */
+      padding: 1.5rem 0;
+    }
+
+    /* Стили колеса фортуны */
+    .wheel-section {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    #spin-wheel-btn {
+      background: linear-gradient(to right, #ff6f00, #ff9a8b);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
+      transition: all 0.3s;
+    }
+
+    #spin-wheel-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
+    }
+
+    #spin-wheel-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .wheel-container {
+      display: none;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    #fortune-wheel {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      border: 6px solid #fff;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .wheel-result {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* Модальное окно результата */
+    .modal-result {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content-result {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-title-result {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .modal-prize {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f0f4ff;
+      border-radius: 12px;
+    }
+
+    .modal-close {
+      margin-top: 1.5rem;
+      background: var(--primary-dark);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     footer {
@@ -271,11 +372,7 @@
     }
 
     @media (max-width: 600px) {
-      .nav-bar {
-        padding: 0.8rem 2%;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+      .nav-bar { padding: 0.8rem 2%; flex-direction: column; gap: 0.5rem; }
       h1 { font-size: 2.2rem; }
       .tagline { font-size: 1.1rem; }
       section { padding: 1.8rem; }
@@ -283,6 +380,7 @@
       .prices-cards { gap: 0.8rem; }
       .price-card { width: 100%; }
       .exercises-btn { padding: 0.7rem 1rem; font-size: 0.95rem; }
+      #fortune-wheel { width: 200px; height: 200px; }
     }
   </style>
 </head>
@@ -371,11 +469,26 @@
       <h2>📝 Записаться на урок</h2>
       <div class="booking-section">
         <div style="text-align: center; margin-top: 1rem;">
-          <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
+          <button id="spin-wheel-btn">🎰 Крутить колесо фортуны!</button>
+          <div class="wheel-container" id="wheel-container">
+            <canvas id="fortune-wheel" width="250" height="250"></canvas>
+          </div>
+          <div class="wheel-result" id="wheel-result"></div>
         </div>
       </div>
     </section>
 
+  </div>
+
+  <!-- Модальное окно результата -->
+  <div class="modal-result" id="modal-result">
+    <div class="modal-content-result">
+      <div class="modal-title-result">🎉 Поздравляем!</div>
+      <p>Вы выиграли:</p>
+      <div class="modal-prize" id="modal-prize"></div>
+      <p>Свяжитесь со мной, чтобы получить свой приз!</p>
+      <button class="modal-close" id="modal-close">Закрыть</button>
+    </div>
   </div>
 
   <footer>
@@ -387,7 +500,6 @@
     const updateActiveNav = () => {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.nav-btn');
-      
       let currentId = '';
       let smallestDiff = Infinity;
 
@@ -418,7 +530,6 @@
       }
     });
 
-    // Клик — плавная прокрутка
     document.querySelectorAll('.nav-btn').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -433,6 +544,157 @@
     });
 
     updateActiveNav();
+  </script>
+
+  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const prizes = [
+        "Скидка на первый месяц 10%",
+        "Бесплатный урок",
+        "Полезный PDF",
+        "Скидка на курс 10%",
+        "Доступ к закрытому ТГ-каналу"
+      ];
+
+      const spinBtn = document.getElementById('spin-wheel-btn');
+      const wheelCanvas = document.getElementById('fortune-wheel');
+      const ctx = wheelCanvas.getContext('2d');
+      const modalResult = document.getElementById('modal-result');
+      const modalPrize = document.getElementById('modal-prize');
+      const modalClose = document.getElementById('modal-close');
+      const wheelResult = document.getElementById('wheel-result');
+
+      let isSpun = localStorage.getItem('wheelSpun') === 'true';
+      let isSpinning = false;
+
+      // Если уже крутили — блокируем кнопку
+      if (isSpun) {
+        spinBtn.disabled = true;
+        spinBtn.textContent = "✅ Уже использовано";
+        const savedPrize = localStorage.getItem('wheelPrize');
+        if (savedPrize) {
+          wheelResult.innerHTML = `Ваш приз: <strong>${savedPrize}</strong>`;
+        }
+      }
+
+      // Рисуем колесо
+      function drawWheel() {
+        const centerX = wheelCanvas.width / 2;
+        const centerY = wheelCanvas.height / 2;
+        const radius = centerX - 10;
+
+        const arc = Math.PI / (prizes.length / 2);
+
+        for (let i = 0; i < prizes.length; i++) {
+          const startAngle = i * arc;
+          const endAngle = (i + 1) * arc;
+
+          // Цвет сектора
+          const colors = ['#FF6F00', '#1DE9B6', '#FF4081', '#7C4DFF', '#4CAF50'];
+          ctx.fillStyle = colors[i % colors.length];
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+          ctx.closePath();
+          ctx.fill();
+
+          // Рамка
+          ctx.strokeStyle = '#fff';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Текст
+          ctx.save();
+          ctx.translate(centerX, centerY);
+          ctx.rotate(startAngle + arc / 2);
+          ctx.textAlign = 'right';
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 12px Inter';
+          ctx.fillText(prizes[i], radius - 20, 10);
+          ctx.restore();
+        }
+
+        // Стрелка
+        ctx.fillStyle = '#333';
+        ctx.beginPath();
+        ctx.moveTo(centerX - 10, 20);
+        ctx.lineTo(centerX + 10, 20);
+        ctx.lineTo(centerX, 0);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Крутим колесо
+      function spinWheel() {
+        if (isSpinning || isSpun) return;
+
+        isSpinning = true;
+        spinBtn.disabled = true;
+
+        const spinAngle = 360 * 5 + Math.floor(Math.random() * 360); // 5 полных оборотов + случайный угол
+        const duration = 5000; // 5 секунд
+        const startTime = Date.now();
+
+        const rotate = () => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3); // плавное замедление
+          const currentAngle = spinAngle * easeOut;
+
+          ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
+          ctx.save();
+          ctx.translate(wheelCanvas.width / 2, wheelCanvas.height / 2);
+          ctx.rotate((Math.PI / 180) * currentAngle);
+          ctx.translate(-wheelCanvas.width / 2, -wheelCanvas.height / 2);
+          drawWheel();
+          ctx.restore();
+
+          if (progress < 1) {
+            requestAnimationFrame(rotate);
+          } else {
+            isSpinning = false;
+            isSpun = true;
+            localStorage.setItem('wheelSpun', 'true');
+
+            // Определяем выигрыш
+            const arc = 360 / prizes.length;
+            const normalizedAngle = (360 - (spinAngle % 360)) % 360;
+            const prizeIndex = Math.floor(normalizedAngle / arc) % prizes.length;
+            const prize = prizes[prizeIndex];
+
+            localStorage.setItem('wheelPrize', prize);
+            modalPrize.textContent = prize;
+            modalResult.style.display = 'flex';
+
+            spinBtn.textContent = "✅ Уже использовано";
+            spinBtn.disabled = true;
+            wheelResult.innerHTML = `Ваш приз: <strong>${prize}</strong>`;
+          }
+        };
+
+        rotate();
+      }
+
+      // Инициализация
+      drawWheel();
+
+      // Обработчики
+      spinBtn.addEventListener('click', () => {
+        document.getElementById('wheel-container').style.display = 'flex';
+        setTimeout(spinWheel, 500);
+      });
+
+      modalClose.addEventListener('click', () => {
+        modalResult.style.display = 'none';
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === modalResult) {
+          modalResult.style.display = 'none';
+        }
+      });
+    });
   </script>
 
 </body>
