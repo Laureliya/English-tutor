@@ -288,8 +288,8 @@
     }
 
     #fortune-wheel {
-      width: 250px;
-      height: 250px;
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
       position: relative;
       overflow: hidden;
@@ -398,7 +398,7 @@
       .prices-cards { gap: 0.8rem; }
       .price-card { width: 100%; }
       .exercises-btn { padding: 0.7rem 1rem; font-size: 0.95rem; }
-      #fortune-wheel { width: 200px; height: 200px; }
+      #fortune-wheel { width: 220px; height: 220px; }
     }
   </style>
 </head>
@@ -491,7 +491,7 @@
             <div class="wheel-header">🎁 Получите стартовый подарок!</div>
             <div class="wheel-subheader">Покрутите колесо и получите бонус для начала занятий. Каждый новый ученик получает подарок!</div>
             <div class="wheel-container">
-              <canvas id="fortune-wheel" width="250" height="250"></canvas>
+              <canvas id="fortune-wheel" width="280" height="280"></canvas>
             </div>
             <button id="spin-wheel-btn">Крутить колесо!</button>
             <div class="wheel-result" id="wheel-result"></div>
@@ -568,7 +568,7 @@
     updateActiveNav();
   </script>
 
-  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (в ваших оттенках) -->
+  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (интерактивное, яркое, без совушки) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const prizes = [
@@ -600,13 +600,13 @@
         }
       }
 
-      // Цвета секторов в ваших оттенках
+      // Яркие цвета в ваших оттенках
       const colors = [
         '#6a3aff', // темно-фиолетовый
         '#8a2be2', // фиолетово-розовый
-        '#d1c4e9', // светло-фиолетовый
         '#b388ff', // лиловый
-        '#9575cd'  // серо-фиолетовый
+        '#9575cd', // серо-фиолетовый
+        '#d1c4e9'  // светло-фиолетовый
       ];
 
       // Рисуем колесо
@@ -645,7 +645,7 @@
           ctx.restore();
         }
 
-        // Стрелка (ваш логотип — сова)
+        // Стрелка (черная)
         ctx.fillStyle = '#333';
         ctx.beginPath();
         ctx.moveTo(centerX - 10, 20);
@@ -653,16 +653,6 @@
         ctx.lineTo(centerX, 0);
         ctx.closePath();
         ctx.fill();
-
-        // Логотип по центру
-        ctx.fillStyle = '#fff';
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#6a3aff';
-        ctx.font = 'bold 16px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('🦉', centerX, centerY + 5);
       }
 
       // Крутим колесо
