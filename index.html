@@ -423,35 +423,68 @@
 
   <!-- Надёжный скрипт активной навигации -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = Array.from(document.querySelectorAll('section[id]'));
-      const navLinks = document.querySelectorAll('.nav-btn');
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const navLinks = document.querySelectorAll('.nav-btn');
 
-      const updateActiveLink = () => {
-        const scrollY = window.scrollY + window.innerHeight / 2;
-        let currentId = '';
+    // Функция: обновить активную кнопку по текущей прокрутке
+    const updateActiveByScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight / 2;
+      let currentId = '';
 
-        // Ищем раздел, в котором находится центр экрана
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const section = sections[i];
-          const top = section.offsetTop;
-          const bottom = top + section.offsetHeight;
-          if (scrollY >= top && scrollY <= bottom) {
-            currentId = section.id;
-            break;
-          }
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollY >= top && scrollY <= bottom) {
+          currentId = section.id;
+          break;
         }
+      }
 
-        // Обновляем активный класс
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+      });
+    };
+
+    // Обработчик прокрутки
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        requestAnimationFrame(() => {
+          updateActiveByScroll();
+          isScrolling = false;
         });
-      };
-
-      window.addEventListener('scroll', updateActiveLink);
-      updateActiveLink();
+        isScrolling = true;
+      }
     });
-  </script>
+
+    // Обработчик клика по навигации
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        
+        // Сразу подсвечиваем
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Прокручиваем
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          window.scrollTo({
+            top: targetSection.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Инициализация
+    updateActiveByScroll();
+  });
+</script>
 
 </body>
 </html>
+
