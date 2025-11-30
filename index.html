@@ -658,14 +658,14 @@
           ctx.lineWidth = 2;
           ctx.stroke();
 
-          // Текст
+          // Текст — теперь центрирован и не выходит за пределы
           ctx.save();
           ctx.translate(centerX, centerY);
           ctx.rotate(startAngle + arc / 2);
-          ctx.textAlign = 'right';
+          ctx.textAlign = 'center';
           ctx.fillStyle = '#fff';
           ctx.font = 'bold 12px Inter';
-          ctx.fillText(prizes[i], radius - 20, 10);
+          ctx.fillText(prizes[i], 0, -radius / 2 + 10); // текст внутри сектора
           ctx.restore();
         }
 
