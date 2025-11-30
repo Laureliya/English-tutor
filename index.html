@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Анжелика Бирюкова | Репетитор английского для детей</title>
+  <title>Анжелика Бирюкова | Репетитор английского</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -37,281 +37,121 @@
       padding: 1rem 5%;
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
       width: 100%;
-      min-height: 64px;
+      min-height: 60px;
       align-items: center;
     }
 
     .nav-btn {
       background: linear-gradient(to right, var(--accent), var(--primary-dark));
       color: white;
-      padding: 0.7rem 1.2rem;
+      padding: 0.6rem 1rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+      gap: 0.4rem;
+      box-shadow: 0 3px 10px rgba(138, 43, 226, 0.4);
+      white-space: nowrap;
     }
 
     .nav-btn:hover {
-      background: linear-gradient(to right, #7a1cd1, #5a2ad9);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(138, 43, 226, 0.5);
     }
 
     .nav-btn.active {
       background: white;
       color: var(--primary-dark);
       font-weight: 700;
-      transform: translateY(-4px) scale(1.08);
-      box-shadow: 0 8px 25px rgba(106, 58, 255, 0.6);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(106, 58, 255, 0.5);
     }
 
     header {
       background: linear-gradient(110deg, var(--primary-light), var(--primary-dark));
       color: white;
-      padding: 2.5rem 5%;
+      padding: 2rem 5%;
       text-align: center;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
     }
 
     .profile-pic {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid white;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
       margin: 0 auto 1rem;
     }
 
     h1 {
       font-family: 'Poppins', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
+      font-size: 2.2rem;
     }
 
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 20px;
-      padding-top: 80px; /* отступ под навигацию */
+      padding-top: 80px;
     }
 
     section {
       background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
+      padding: 1.8rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
       box-shadow: var(--card-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 6px;
-      height: 100%;
-      background: var(--primary-dark);
     }
 
     h2 {
-      font-size: 2rem;
-      margin-bottom: 1.4rem;
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
       color: var(--primary-dark);
       text-align: center;
-      position: relative;
-      padding-bottom: 12px;
-    }
-
-    h2::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
     }
 
     .badge-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       justify-content: center;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     .badge {
       background: var(--primary-dark);
       color: white;
-      padding: 0.7rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 50px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    .badge:hover {
-      background: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    /* Цены */
-    .prices-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    .prices-title {
-      font-size: 2rem;
-      color: var(--primary-dark);
-      text-align: center;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .prices-title::after {
-      content: "";
-      flex: 1;
-      height: 4px;
-      background: var(--accent);
-    }
-
-    .prices-cards {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .price-card {
-      background: transparent;
-      padding: 1.5rem;
-      border-radius: 16px;
-      width: 220px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(106, 58, 255, 0.1);
-      border: 2px solid var(--primary-light);
-      transition: all 0.3s ease;
-    }
-
-    .price-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: var(--accent);
-      box-shadow: 0 8px 25px rgba(106, 58, 255, 0.15);
-    }
-
-    .price-label {
-      font-size: 1.1rem;
-      color: var(--primary-dark);
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .price-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 0.5rem 0;
-    }
-
-    .price-duration {
       font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* Упражнения */
-    .exercises-section {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .exercises-btn {
-      background: linear-gradient(to right, var(--primary-dark), var(--accent));
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      box-shadow: 0 4px 12px rgba(106, 58, 255, 0.2);
-    }
-
-    .exercises-btn:hover {
-      background: linear-gradient(to right, var(--accent), var(--primary-dark));
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
-    }
-
-    /* Стили для контактов и записи */
-    .contacts-section,
-    .booking-section {
-      background: #f8f4ff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
     }
 
     footer {
       text-align: center;
       padding: 2rem;
       color: #666;
-      font-size: 0.95rem;
-      border-top: 1px solid #eee;
-    }
-
-    section[id] {
-      scroll-margin-top: 80px;
+      font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
       .nav-bar {
-        padding: 0.8rem 2%;
-        flex-direction: column;
         gap: 0.5rem;
+        padding: 0.8rem 2%;
       }
-      h1 { font-size: 2.2rem; }
-      .tagline { font-size: 1.1rem; }
-      section { padding: 1.8rem; }
-      .badge-container { gap: 0.8rem; }
-      .prices-cards { gap: 0.8rem; }
-      .price-card { width: 100%; }
-      .exercises-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+      .nav-btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.9rem;
+      }
     }
   </style>
 </head>
@@ -322,140 +162,90 @@
     <a href="#about" class="nav-btn">👤 Обо мне</a>
     <a href="#materials" class="nav-btn">📚 Материалы</a>
     <a href="#exercises" class="nav-btn">🎮 Упражнения</a>
-    <a href="#prices" class="nav-btn">💰 Форматы и цены</a>
+    <a href="#prices" class="nav-btn">💰 Цены</a>
     <a href="#contacts" class="nav-btn">📞 Контакты</a>
     <a href="#booking" class="nav-btn">📝 Записаться</a>
   </div>
 
   <!-- Шапка -->
   <header>
-    <!-- Замените на своё фото -->
-    <img src="IMAGES/photo.png" class="profile-pic" alt="Анжелика Бирюкова">
+    <div class="profile-pic">👩‍🏫</div>
     <h1>Анжелика Бирюкова</h1>
-    <p class="tagline">Репетитор английского для детей и подростков</p>
+    <p>Репетитор английского для детей</p>
   </header>
 
   <div class="container">
-
-    <!-- Обо мне -->
     <section id="about">
       <h2>👤 Обо мне</h2>
       <div class="badge-container">
-        <span class="badge">Высшее педагогическое образование, ин.яз</span>
-        <span class="badge">Применение ИИ в обучении</span>
-        <span class="badge">Современные технологии обучения английскому</span>
+        <span class="badge">Высшее, ин.яз</span>
+        <span class="badge">ИИ в обучении</span>
+        <span class="badge">Современные методики</span>
       </div>
     </section>
 
-    <!-- Материалы -->
     <section id="materials">
-      <h2>📚 Учебные материалы</h2>
+      <h2>📚 Материалы</h2>
       <div class="badge-container">
-        <span class="badge">Современные методики и учебники</span>
-        <span class="badge">Интерактивные платформы</span>
-        <span class="badge">Авторские материалы + дом. задания с самопроверкой</span>
+        <span class="badge">Учебники</span>
+        <span class="badge">Платформы</span>
+        <span class="badge">Авторские материалы</span>
       </div>
     </section>
 
-    <!-- Упражнения -->
     <section id="exercises">
       <h2>🎮 Упражнения</h2>
-      <div class="exercises-section">
-        <a href="#" class="exercises-btn" id="openExercisesModal">
-          📚 Интерактивные упражнения, тесты, игры
-        </a>
-      </div>
+      <p>Интерактивные задания и игры</p>
     </section>
 
-    <!-- Цены -->
     <section id="prices">
-      <div class="prices-section">
-        <div class="prices-title">
-          <span>💰</span> Форматы и цены
-        </div>
-        <div class="prices-cards">
-          <div class="price-card">
-            <div class="price-label">Индивидуально</div>
-            <div class="price-value">2000 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-          <div class="price-card">
-            <div class="price-label">В парах</div>
-            <div class="price-value">1500 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-          <div class="price-card">
-            <div class="price-label">Мини-группа</div>
-            <div class="price-value">1000 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-        </div>
-      </div>
+      <h2>💰 Цены</h2>
+      <p>Индивидуально — 2000 ₽</p>
     </section>
 
-    <!-- Контакты -->
     <section id="contacts">
-      <div class="contacts-section">
-        <h2>📞 Контакты</h2>
-        <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
-          Телефон: <strong>+7 (000) 000-00-00</strong><br>
-          Email: <strong>angelinabirukova@example.com</strong>
-        </div>
-      </div>
+      <h2>📞 Контакты</h2>
+      <p>+7 (000) 000-00-00</p>
     </section>
 
-    <!-- Записаться -->
     <section id="booking">
-      <div class="booking-section">
-        <h2>📝 Записаться на урок</h2>
-        <div style="text-align: center; margin-top: 1.5rem;">
-          <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
-        </div>
-      </div>
+      <h2>📝 Записаться</h2>
+      <p>Нажмите на кнопку в шапке</p>
     </section>
-
   </div>
 
   <footer>
-    <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
+    <p>© 2025 Анжелика Бирюкова</p>
   </footer>
 
- <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-btn');
+  <!-- Надёжный скрипт активной навигации -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      const navLinks = document.querySelectorAll('.nav-btn');
 
-    const updateActiveLink = () => {
-      // Находим середину экрана
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const centerPosition = scrollY + windowHeight / 2;
-
-      let currentSectionId = '';
-
-      // Определяем, в каком разделе находится центр экрана
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (centerPosition >= sectionTop && centerPosition <= sectionBottom) {
-          currentSectionId = section.getAttribute('id');
-          break;
+      const updateActive = () => {
+        const scrollY = window.scrollY + window.innerHeight / 2;
+        
+        let activeId = '';
+        for (const section of sections) {
+          const top = section.offsetTop;
+          const bottom = top + section.offsetHeight;
+          if (scrollY >= top && scrollY <= bottom) {
+            activeId = section.id;
+            break;
+          }
         }
-      }
 
-      // Обновляем активный класс
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
-      });
-    };
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+        });
+      };
 
-    window.addEventListener('scroll', updateActiveLink);
-    updateActiveLink(); // при загрузке
-  });
-</script>
+      window.addEventListener('scroll', updateActive);
+      updateActive();
+    });
+  </script>
 
 </body>
 </html>
-
