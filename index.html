@@ -568,7 +568,7 @@
     updateActiveNav();
   </script>
 
-  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (интерактивное, яркое, без совушки) -->
+  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (интерактивное, яркое, с звуком и вибрацией) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const prizes = [
@@ -587,6 +587,15 @@
       const modalClose = document.getElementById('modal-close');
       const wheelResult = document.getElementById('wheel-result');
 
+      // Яркие цвета (в ваших оттенках, но более насыщенные)
+      const colors = [
+        '#6a3aff', // темно-фиолетовый
+        '#8a2be2', // фиолетово-розовый
+        '#b388ff', // лиловый
+        '#9575cd', // серо-фиолетовый
+        '#d1c4e9'  // светло-фиолетовый
+      ];
+
       let isSpun = localStorage.getItem('wheelSpun') === 'true';
       let isSpinning = false;
 
@@ -600,17 +609,32 @@
         }
       }
 
-      // Яркие цвета в ваших оттенках
-      const colors = [
-        '#6a3aff', // темно-фиолетовый
-        '#8a2be2', // фиолетово-розовый
-        '#b388ff', // лиловый
-        '#9575cd', // серо-фиолетовый
-        '#d1c4e9'  // светло-фиолетовый
-      ];
+      // Создаем аудио-объект для звука
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      function playSound() {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // до
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.start();
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.2);
+        oscillator.stop(audioContext.currentTime + 0.2);
+      }
+
+      // Вибрация (только на мобильных)
+      function vibrate() {
+        if (navigator.vibrate) {
+          navigator.vibrate([50, 50, 50]); // 3 коротких вибрации
+        }
+      }
 
       // Рисуем колесо
-      function drawWheel() {
+      function drawWheel(rotation = 0) {
         const centerX = wheelCanvas.width / 2;
         const centerY = wheelCanvas.height / 2;
         const radius = centerX - 10;
@@ -618,8 +642,8 @@
         const arc = Math.PI / (prizes.length / 2);
 
         for (let i = 0; i < prizes.length; i++) {
-          const startAngle = i * arc;
-          const endAngle = (i + 1) * arc;
+          const startAngle = i * arc + rotation;
+          const endAngle = (i + 1) * arc + rotation;
 
           // Цвет сектора
           ctx.fillStyle = colors[i % colors.length];
@@ -673,12 +697,7 @@
           const currentAngle = spinAngle * easeOut;
 
           ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-          ctx.save();
-          ctx.translate(wheelCanvas.width / 2, wheelCanvas.height / 2);
-          ctx.rotate((Math.PI / 180) * currentAngle);
-          ctx.translate(-wheelCanvas.width / 2, -wheelCanvas.height / 2);
-          drawWheel();
-          ctx.restore();
+          drawWheel(currentAngle);
 
           if (progress < 1) {
             requestAnimationFrame(rotate);
@@ -697,9 +716,22 @@
             modalPrize.textContent = prize;
             modalResult.style.display = 'flex';
 
+            // Анимация при выигрыше
+            wheelResult.style.opacity = 0;
+            wheelResult.style.transform = 'scale(0.8)';
+            wheelResult.innerHTML = `Ваш приз: <strong>${prize}</strong>`;
+            setTimeout(() => {
+              wheelResult.style.transition = 'all 0.6s ease';
+              wheelResult.style.opacity = 1;
+              wheelResult.style.transform = 'scale(1)';
+            }, 100);
+
+            // Звук и вибрация
+            playSound();
+            vibrate();
+
             spinBtn.textContent = "✅ Уже использовано";
             spinBtn.disabled = true;
-            wheelResult.innerHTML = `Ваш приз: <strong>${prize}</strong>`;
           }
         };
 
