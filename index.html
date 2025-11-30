@@ -425,63 +425,50 @@
 
   <!-- Надёжный скрипт активной навигации -->
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  // Умная активная навигация
+  const updateActiveNav = () => {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-btn');
+    
+    let currentId = '';
+    let currentSection = null;
+    let smallestDiff = Infinity;
 
-    const updateActive = () => {
-      let currentId = '';
-      const scrollY = window.scrollY + 80; // +80 = высота навигации
-
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionBottom = sectionTop + sectionHeight;
-
-        if (scrollY >= sectionTop && scrollY <= sectionBottom) {
+    // Находим ближайший раздел к верху экрана (ниже навигации)
+    sections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      if (top < 200 && top > -500) { // в зоне видимости
+        const diff = Math.abs(top - 100); // 100px = зона под навигацией
+        if (diff < smallestDiff) {
+          smallestDiff = diff;
           currentId = section.id;
         }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
-      });
-    };
-
-    // Обработка клика — только прокрутка, подсветка обновится автоматически
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          window.scrollTo({
-            top: targetSection.offsetTop - 80,
-            behavior: 'smooth'
-          });
-          // Подсветка обновится через scroll-событие
-        }
-      });
-    });
-
-    // Отложенный вызов при скролле — убираем дёргание
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateActive();
-          ticking = false;
-        });
-        ticking = true;
       }
     });
 
-    // Инициализация
-    updateActive();
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+    });
+  };
+
+  // Используем requestAnimationFrame для плавности
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
+
+  // Инициализация
+  updateActiveNav();
 </script>
 </body>
 </html>
+
 
 
 
