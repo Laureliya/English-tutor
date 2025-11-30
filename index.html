@@ -44,7 +44,7 @@
       top: 0;
       z-index: 1000;
       width: 100%;
-      min-height: 64px; /* фиксированная высота */
+      min-height: 64px;
       align-items: center;
     }
 
@@ -69,7 +69,6 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
     }
 
-    /* АКТИВНАЯ КНОПКА */
     .nav-btn.active {
       background: white;
       color: var(--primary-dark);
@@ -112,9 +111,9 @@
 
     .container {
       max-width: 1000px;
-      margin: 0 auto; /* убран верхний отступ */
+      margin: 0 auto;
       padding: 0 20px;
-      padding-top: 80px; /* ✅ КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: отступ под навигацию */
+      padding-top: 80px; /* отступ под навигацию */
     }
 
     section {
@@ -278,7 +277,7 @@
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
     }
 
-    /* Контакты и запись */
+    /* Стили для контактов и записи */
     .contacts-section,
     .booking-section {
       background: #f8f4ff;
@@ -330,6 +329,7 @@
 
   <!-- Шапка -->
   <header>
+    <!-- Замените на своё фото -->
     <img src="IMAGES/photo.png" class="profile-pic" alt="Анжелика Бирюкова">
     <h1>Анжелика Бирюкова</h1>
     <p class="tagline">Репетитор английского для детей и подростков</p>
@@ -337,6 +337,7 @@
 
   <div class="container">
 
+    <!-- Обо мне -->
     <section id="about">
       <h2>👤 Обо мне</h2>
       <div class="badge-container">
@@ -346,6 +347,7 @@
       </div>
     </section>
 
+    <!-- Материалы -->
     <section id="materials">
       <h2>📚 Учебные материалы</h2>
       <div class="badge-container">
@@ -355,6 +357,7 @@
       </div>
     </section>
 
+    <!-- Упражнения -->
     <section id="exercises">
       <h2>🎮 Упражнения</h2>
       <div class="exercises-section">
@@ -364,6 +367,7 @@
       </div>
     </section>
 
+    <!-- Цены -->
     <section id="prices">
       <div class="prices-section">
         <div class="prices-title">
@@ -389,6 +393,7 @@
       </div>
     </section>
 
+    <!-- Контакты -->
     <section id="contacts">
       <div class="contacts-section">
         <h2>📞 Контакты</h2>
@@ -399,6 +404,7 @@
       </div>
     </section>
 
+    <!-- Записаться -->
     <section id="booking">
       <div class="booking-section">
         <h2>📝 Записаться на урок</h2>
@@ -415,6 +421,7 @@
   </footer>
 
   <script>
+    // Активная навигация
     document.addEventListener('DOMContentLoaded', () => {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.nav-btn');
