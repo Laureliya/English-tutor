@@ -28,6 +28,11 @@
       line-height: 1.6;
     }
 
+    /* Плавная прокрутка */
+    html {
+      scroll-behavior: smooth;
+    }
+
     .nav-bar {
       background: linear-gradient(110deg, var(--primary-light), var(--primary-dark));
       padding: 1rem 5%;
@@ -38,7 +43,8 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      width: 100%;
     }
 
     .nav-btn {
@@ -58,7 +64,7 @@
 
     .nav-btn:hover {
       background: linear-gradient(to right, #7a1cd1, #5a2ad9);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(138, 43, 226, 0.5);
     }
 
@@ -74,25 +80,10 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: var(--primary-dark);
-      margin: 0 auto 1rem;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      object-fit: cover;
       border: 4px solid white;
-    }
-
-    /* Стиль для заглушки фото */
-    .profile-pic-placeholder {
-      background: #eee;
-      color: #999;
-      font-size: 1.2rem;
-      padding: 0.5rem;
-      text-align: center;
-      font-weight: 500;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      margin: 0 auto 1rem;
     }
 
     h1 {
@@ -116,7 +107,7 @@
     }
 
     section {
-      background:white;
+      background: #f8f4ff; /* светло-фиолетовый фон разделов */
       padding: 2rem;
       border-radius: 20px;
       margin-bottom: 2.5rem;
@@ -182,7 +173,7 @@
 
     /* Цены */
     .prices-section {
-      background: white;
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       margin-bottom: 2.5rem;
@@ -214,19 +205,20 @@
     }
 
     .price-card {
-      background: white;
+      background: transparent;
       padding: 1.5rem;
       border-radius: 16px;
       width: 220px;
       text-align: center;
       box-shadow: 0 6px 20px rgba(106, 58, 255, 0.1);
       border: 2px solid var(--primary-light);
-      transition: transform 0.3s;
+      transition: all 0.3s ease;
     }
 
     .price-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px) scale(1.02);
       border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(106, 58, 255, 0.15);
     }
 
     .price-label {
@@ -290,7 +282,7 @@
     }
 
     .modal-content-exercises {
-      background: white;
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       max-width: 500px;
@@ -306,7 +298,7 @@
       font-size: 1.5rem;
       color: #666;
       cursor: pointer;
-      background:#dbc5fa;
+      background: #dbc5fa;
       border: none;
     }
 
@@ -355,7 +347,7 @@
 
     /* Контакты */
     .contacts-section {
-      background: white;
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       margin-bottom: 2.5rem;
@@ -364,7 +356,7 @@
 
     /* Записаться */
     .booking-section {
-      background: white;
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       margin-bottom: 2.5rem;
@@ -388,7 +380,7 @@
 
     .modal-content-agreement,
     .form-content {
-      background: white;
+      background: #f8f4ff;
       padding: 2rem;
       border-radius: 20px;
       max-width: 600px;
@@ -474,6 +466,18 @@
       border-top: 1px solid #eee;
     }
 
+    /* Анимация появления при прокрутке */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     section[id] {
       scroll-margin-top: 80px;
     }
@@ -508,13 +512,9 @@
 
   <!-- Шапка -->
   <header>
-    <!-- 💡 ВСТАВЬТЕ СВОЁ ФОТО ТУДА -->
-    <!-- 1. Создайте папку IMAGES в корне репозитория -->
-    <!-- 2. Загрузите туда фото, например: photo.jpg -->
-    <!-- 3. Замените эту строку на: -->
-    <!-- <img src="IMAGES/photo.jpg" class="profile-pic" alt="Анжелика Бирюкова"> -->
-
-    <img src="IMAGES/photo.png" class="profile-pic" alt="Анжелика Бирюкова">
+    <!-- 💡 ЗДЕСЬ БУДЕТ ВАШЕ ФОТО -->
+    <!-- После загрузки фото в папку IMAGES, замените src на: "IMAGES/photo.jpg" -->
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0e9ff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter' font-size='16' fill='%236a3aff'%3EВаше фото%3C/text%3E%3C/svg%3E" class="profile-pic" alt="Анжелика Бирюкова">
     <h1>Анжелика Бирюкова</h1>
     <p class="tagline">Репетитор английского для детей и подростков</p>
   </header>
@@ -522,81 +522,93 @@
   <div class="container">
 
     <!-- Обо мне -->
-    <section id="about">
-      <h2>👤 Обо мне</h2>
-      <div class="badge-container">
-        <span class="badge">Высшее педагогическое образование, ин.яз</span>
-        <span class="badge">Применение ИИ в обучении</span>
-        <span class="badge">Современные технологии обучения английскому</span>
-      </div>
-    </section>
+    <div class="fade-in-section">
+      <section id="about">
+        <h2>👤 Обо мне</h2>
+        <div class="badge-container">
+          <span class="badge">Высшее педагогическое образование, ин.яз</span>
+          <span class="badge">Применение ИИ в обучении</span>
+          <span class="badge">Современные технологии обучения английскому</span>
+        </div>
+      </section>
+    </div>
 
     <!-- Материалы -->
-    <section id="materials">
-      <h2>📚 Учебные материалы</h2>
-      <div class="badge-container">
-        <span class="badge">Современные методики и учебники</span>
-        <span class="badge">Интерактивные платформы</span>
-        <span class="badge">Авторские материалы + дом. задания с самопроверкой</span>
-      </div>
-    </section>
+    <div class="fade-in-section">
+      <section id="materials">
+        <h2>📚 Учебные материалы</h2>
+        <div class="badge-container">
+          <span class="badge">Современные методики и учебники</span>
+          <span class="badge">Интерактивные платформы</span>
+          <span class="badge">Авторские материалы + дом. задания с самопроверкой</span>
+        </div>
+      </section>
+    </div>
 
     <!-- Упражнения -->
-    <section id="exercises">
-      <h2>🎮 Упражнения</h2>
-      <div class="exercises-section">
-        <a href="#" class="exercises-btn" id="openExercisesModal">
-          📚 Интерактивные упражнения, тесты, игры
-        </a>
-      </div>
-    </section>
+    <div class="fade-in-section">
+      <section id="exercises">
+        <h2>🎮 Упражнения</h2>
+        <div class="exercises-section">
+          <a href="#" class="exercises-btn" id="openExercisesModal">
+            📚 Интерактивные упражнения, тесты, игры
+          </a>
+        </div>
+      </section>
+    </div>
 
     <!-- Цены -->
-    <section id="prices">
-      <div class="prices-section">
-        <div class="prices-title">
-          <span>💰</span> Форматы и цены
+    <div class="fade-in-section">
+      <section id="prices">
+        <div class="prices-section">
+          <div class="prices-title">
+            <span>💰</span> Форматы и цены
+          </div>
+          <div class="prices-cards">
+            <div class="price-card">
+              <div class="price-label">Индивидуально</div>
+              <div class="price-value">2000 ₽</div>
+              <div class="price-duration">за 60 мин</div>
+            </div>
+            <div class="price-card">
+              <div class="price-label">В парах</div>
+              <div class="price-value">1500 ₽</div>
+              <div class="price-duration">за 60 мин</div>
+            </div>
+            <div class="price-card">
+              <div class="price-label">Мини-группа</div>
+              <div class="price-value">1000 ₽</div>
+              <div class="price-duration">за 60 мин</div>
+            </div>
+          </div>
         </div>
-        <div class="prices-cards">
-          <div class="price-card">
-            <div class="price-label">Индивидуально</div>
-            <div class="price-value">2000 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-          <div class="price-card">
-            <div class="price-label">В парах</div>
-            <div class="price-value">1500 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-          <div class="price-card">
-            <div class="price-label">Мини-группа</div>
-            <div class="price-value">1000 ₽</div>
-            <div class="price-duration">за 60 мин</div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- Контакты -->
-    <section id="contacts">
-      <div class="contacts-section">
-        <h2>📞 Контакты</h2>
-        <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
-          Телефон: <strong>+7 (000) 000-00-00</strong><br>
-          Email:   <strong>angelinabirukova@example.com</strong>
+    <div class="fade-in-section">
+      <section id="contacts">
+        <div class="contacts-section">
+          <h2>📞 Контакты</h2>
+          <div style="text-align: center; margin-top: 1.5rem; font-size: 1.1rem;">
+            Телефон: <strong>+7 (000) 000-00-00</strong><br>
+            Email:   <strong>angelinabirukova@example.com</strong>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- Записаться -->
-    <section id="booking">
-      <div class="booking-section">
-        <h2>📝 Записаться на урок</h2>
-        <div style="text-align: center; margin-top: 1.5rem;">
-          <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
+    <div class="fade-in-section">
+      <section id="booking">
+        <div class="booking-section">
+          <h2>📝 Записаться на урок</h2>
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="#" class="booking-btn" id="openAgreementModal">Нажмите, чтобы записаться</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
   </div>
 
@@ -743,18 +755,24 @@
         document.body.style.overflow = '';
       }
     });
+
+    // --- Плавное появление блоков при прокрутке ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.fade-in-section').forEach(section => {
+        observer.observe(section);
+      });
+    });
   </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
