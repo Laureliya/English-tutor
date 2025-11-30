@@ -420,36 +420,42 @@
     <p>© 2025 Анжелика Бирюкова | Репетитор английского для детей и подростков</p>
   </footer>
 
-  <script>
-    // Активная навигация
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('.nav-btn');
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-btn');
 
-      const updateActiveLink = () => {
-        let current = '';
-        const scrollPos = window.scrollY + 100;
+    const updateActiveLink = () => {
+      // Находим середину экрана
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const centerPosition = scrollY + windowHeight / 2;
 
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-          }
-        });
+      let currentSectionId = '';
 
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-          }
-        });
-      };
+      // Определяем, в каком разделе находится центр экрана
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
 
-      window.addEventListener('scroll', updateActiveLink);
-      updateActiveLink();
-    });
-  </script>
+        if (centerPosition >= sectionTop && centerPosition <= sectionBottom) {
+          currentSectionId = section.getAttribute('id');
+          break;
+        }
+      }
+
+      // Обновляем активный класс
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink(); // при загрузке
+  });
+</script>
 
 </body>
 </html>
+
