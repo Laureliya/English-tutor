@@ -381,17 +381,6 @@
       cursor: pointer;
     }
 
-    /* Конфетти */
-    #confetti-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 3000;
-    }
-
     footer {
       text-align: center;
       padding: 2rem;
@@ -502,7 +491,7 @@
             <div class="wheel-header">🎁 Получите стартовый подарок!</div>
             <div class="wheel-subheader">Покрутите колесо и получите бонус для начала занятий. Каждый новый ученик получает подарок!</div>
             <div class="wheel-container">
-              <canvas id="fortune-wheel" width="280" height="280"></canvas>
+              <div id="fortune-wheel"></div>
             </div>
             <button id="spin-wheel-btn">Крутить колесо!</button>
             <div class="wheel-result" id="wheel-result"></div>
@@ -512,9 +501,6 @@
     </section>
 
   </div>
-
-  <!-- Конфетти -->
-  <canvas id="confetti-canvas"></canvas>
 
   <!-- Модальное окно результата -->
   <div class="modal-result" id="modal-result">
@@ -582,7 +568,7 @@
     updateActiveNav();
   </script>
 
-  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (с конфетти, музыкой и 8 призами) -->
+  <!-- СКРИПТ КОЛЕСА ФОРТУНЫ (без текста, равномерные сектора) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // 8 призов
@@ -598,125 +584,50 @@
       ];
 
       const spinBtn = document.getElementById('spin-wheel-btn');
-      const wheelCanvas = document.getElementById('fortune-wheel');
-      const ctx = wheelCanvas.getContext('2d');
+      const wheelContainer = document.getElementById('fortune-wheel');
       const modalResult = document.getElementById('modal-result');
       const modalPrize = document.getElementById('modal-prize');
       const modalClose = document.getElementById('modal-close');
       const wheelResult = document.getElementById('wheel-result');
-      const confettiCanvas = document.getElementById('confetti-canvas');
-      const confettiCtx = confettiCanvas.getContext('2d');
 
       // Яркие цвета
       const colors = [
-        '#6a3aff', '#8a2be2', '#b388ff', '#9575cd', '#d1c4e9',
-        '#ff6f00', '#4caf50', '#2196f3'
+        '#6a3aff', '#8a2be2', '#b388ff', '#9575cd',
+        '#d1c4e9', '#ff6f00', '#4caf50', '#2196f3'
       ];
 
       let isSpun = localStorage.getItem('wheelSpun') === 'true';
       let isSpinning = false;
 
-      // Аудио
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const backgroundMusic = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'); // Замените на свою музыку
-      backgroundMusic.volume = 0.3;
-
-      if (isSpun) {
-        spinBtn.disabled = true;
-        spinBtn.textContent = "✅ Уже использовано";
-        const savedPrize = localStorage.getItem('wheelPrize');
-        if (savedPrize) {
-          wheelResult.innerHTML = `Ваш приз: <strong>${savedPrize}</strong>`;
-        }
-      }
-
-      // Конфетти
-      function createConfetti() {
-        confettiCanvas.width = window.innerWidth;
-        confettiCanvas.height = window.innerHeight;
-        const particles = [];
-        const particleCount = 150;
-
-        for (let i = 0; i < particleCount; i++) {
-          particles.push({
-            x: Math.random() * confettiCanvas.width,
-            y: -20,
-            radius: Math.random() * 5 + 2,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            speed: Math.random() * 3 + 2,
-            angle: Math.random() * Math.PI * 2,
-            angularVelocity: Math.random() * 0.2 - 0.1
-          });
-        }
-
-        function draw() {
-          confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-          let alive = false;
-
-          particles.forEach(p => {
-            p.y += p.speed;
-            p.x += Math.sin(p.angle) * 1;
-            p.angle += p.angularVelocity;
-
-            if (p.y < confettiCanvas.height + 20) {
-              alive = true;
-              confettiCtx.beginPath();
-              confettiCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-              confettiCtx.fillStyle = p.color;
-              confettiCtx.fill();
-            }
-          });
-
-          if (alive) {
-            requestAnimationFrame(draw);
-          } else {
-            confettiCanvas.style.display = 'none';
-          }
-        }
-
-        confettiCanvas.style.display = 'block';
-        draw();
-      }
-
-      // Рисуем колесо
-      function drawWheel(rotation = 0) {
-        const centerX = wheelCanvas.width / 2;
-        const centerY = wheelCanvas.height / 2;
-        const radius = centerX - 10;
-        const arc = Math.PI / (prizes.length / 2);
+      // Создаем сектора
+      function createSectors() {
+        wheelContainer.innerHTML = '';
+        const sectorAngle = 360 / prizes.length;
 
         for (let i = 0; i < prizes.length; i++) {
-          const startAngle = i * arc + rotation;
-          const endAngle = (i + 1) * arc + rotation;
-
-          ctx.fillStyle = colors[i % colors.length];
-          ctx.beginPath();
-          ctx.moveTo(centerX, centerY);
-          ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-          ctx.closePath();
-          ctx.fill();
-
-          ctx.strokeStyle = '#fff';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-
-          ctx.save();
-          ctx.translate(centerX, centerY);
-          ctx.rotate(startAngle + arc / 2);
-          ctx.textAlign = 'center';
-          ctx.fillStyle = '#fff';
-          ctx.font = 'bold 10px Inter';
-          ctx.fillText(prizes[i], 0, -radius / 2 + 10);
-          ctx.restore();
+          const sector = document.createElement('div');
+          sector.style.position = 'absolute';
+          sector.style.width = '50%';
+          sector.style.height = '50%';
+          sector.style.transformOrigin = 'bottom right';
+          sector.style.transform = `rotate(${i * sectorAngle}deg)`;
+          sector.style.backgroundColor = colors[i % colors.length];
+          sector.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%)';
+          wheelContainer.appendChild(sector);
         }
 
-        ctx.fillStyle = '#333';
-        ctx.beginPath();
-        ctx.moveTo(centerX - 10, 20);
-        ctx.lineTo(centerX + 10, 20);
-        ctx.lineTo(centerX, 0);
-        ctx.closePath();
-        ctx.fill();
+        // Стрелка сверху
+        const arrow = document.createElement('div');
+        arrow.style.position = 'absolute';
+        arrow.style.top = '0';
+        arrow.style.left = '50%';
+        arrow.style.transform = 'translateX(-50%) rotate(90deg)';
+        arrow.style.width = '0';
+        arrow.style.height = '0';
+        arrow.style.borderLeft = '15px solid transparent';
+        arrow.style.borderRight = '15px solid transparent';
+        arrow.style.borderTop = '30px solid #333';
+        wheelContainer.appendChild(arrow);
       }
 
       // Крутим колесо
@@ -725,58 +636,39 @@
 
         isSpinning = true;
         spinBtn.disabled = true;
-        backgroundMusic.play().catch(e => console.log("Audio play failed:", e));
 
-        const spinAngle = 360 * 5 + Math.floor(Math.random() * 360);
-        const duration = 5000;
-        const startTime = Date.now();
+        const randomPrizeIndex = Math.floor(Math.random() * prizes.length);
+        const extraRotations = 5; // 5 полных оборотов
+        const totalRotation = 360 * extraRotations + (360 - randomPrizeIndex * (360 / prizes.length));
 
-        const rotate = () => {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          const currentAngle = spinAngle * easeOut;
+        wheelContainer.style.transition = 'transform 5s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
+        wheelContainer.style.transform = `rotate(${totalRotation}deg)`;
 
-          ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-          drawWheel(currentAngle);
+        // Сохранение результата
+        setTimeout(() => {
+          isSpinning = false;
+          isSpun = true;
+          localStorage.setItem('wheelSpun', 'true');
+          localStorage.setItem('wheelPrize', prizes[randomPrizeIndex]);
+          modalPrize.textContent = prizes[randomPrizeIndex];
+          modalResult.style.display = 'flex';
 
-          if (progress < 1) {
-            requestAnimationFrame(rotate);
-          } else {
-            isSpinning = false;
-            isSpun = true;
-            localStorage.setItem('wheelSpun', 'true');
+          wheelResult.style.opacity = 0;
+          wheelResult.style.transform = 'scale(0.8)';
+          wheelResult.innerHTML = `Ваш приз: <strong>${prizes[randomPrizeIndex]}</strong>`;
+          setTimeout(() => {
+            wheelResult.style.transition = 'all 0.6s ease';
+            wheelResult.style.opacity = 1;
+            wheelResult.style.transform = 'scale(1)';
+          }, 100);
 
-            const arc = 360 / prizes.length;
-            const normalizedAngle = (360 - (spinAngle % 360)) % 360;
-            const prizeIndex = Math.floor(normalizedAngle / arc) % prizes.length;
-            const prize = prizes[prizeIndex];
-
-            localStorage.setItem('wheelPrize', prize);
-            modalPrize.textContent = prize;
-            modalResult.style.display = 'flex';
-
-            wheelResult.style.opacity = 0;
-            wheelResult.style.transform = 'scale(0.8)';
-            wheelResult.innerHTML = `Ваш приз: <strong>${prize}</strong>`;
-            setTimeout(() => {
-              wheelResult.style.transition = 'all 0.6s ease';
-              wheelResult.style.opacity = 1;
-              wheelResult.style.transform = 'scale(1)';
-              createConfetti(); // Запуск конфетти
-            }, 100);
-
-            spinBtn.textContent = "✅ Уже использовано";
-            spinBtn.disabled = true;
-          }
-        };
-
-        rotate();
+          spinBtn.textContent = "✅ Уже использовано";
+          spinBtn.disabled = true;
+        }, 5000);
       }
 
       // Инициализация
-      drawWheel();
-      confettiCanvas.style.display = 'none';
+      createSectors();
 
       // Обработчики
       spinBtn.addEventListener('click', spinWheel);
@@ -788,6 +680,16 @@
           modalResult.style.display = 'none';
         }
       });
+
+      // Если уже крутили — показываем результат
+      if (isSpun) {
+        spinBtn.disabled = true;
+        spinBtn.textContent = "✅ Уже использовано";
+        const savedPrize = localStorage.getItem('wheelPrize');
+        if (savedPrize) {
+          wheelResult.innerHTML = `Ваш приз: <strong>${savedPrize}</strong>`;
+        }
+      }
     });
   </script>
 
